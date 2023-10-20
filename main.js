@@ -1,28 +1,40 @@
-//rock paper scissors //
+//rock paper scissors game //
 
 //computer generated choice//
-
-let playerSelection = prompt(
-  "please enter rock, paper or scissors"
-).toLocaleLowerCase(0);
-console.log("Your choice is " + playerSelection);
-
+// generates a random choice for the opponent
 function getComputerChoice() {
   const options = ["rock", "paper", "scissors"];
   return options[Math.floor(Math.random() * 3)];
 }
 
+const rock = document.getElementById("rockBtn");
+const paper = document.getElementById("paperBtn");
+const scissors = document.getElementById("scissorsBtn");
+
+rock.addEventListener("click", function () {
+  console.log("rock button clicked");
+  playRound("rock", getComputerChoice());
+});
+paper.addEventListener("click", function () {
+  console.log("paper button clicked");
+  playRound("paper", getComputerChoice());
+});
+scissors.addEventListener("click", function () {
+  console.log("scissors button clicked");
+  playRound("scissors", getComputerChoice());
+});
+
 function playRound(playerSelection, computerSelection) {
   //draws//
   if (playerSelection === "rock" && computerSelection === "rock") {
-    console.log("Draw!");
+    console.log("Draw! Both chose rock");
   } else if (playerSelection === "paper" && computerSelection === "paper") {
-    console.log("Draw!");
+    console.log("Draw! Both chose paper");
   } else if (
     playerSelection === "scissors" &&
     computerSelection === "scissors"
   ) {
-    console.log("Draw!");
+    console.log("Draw! Both chose scissors");
   } else if (playerSelection === "rock" && computerSelection === "paper") {
     console.log("You lose! paper beats rock");
   } else if (playerSelection === "rock" && computerSelection === "scissors") {
@@ -36,10 +48,8 @@ function playRound(playerSelection, computerSelection) {
   } else if (playerSelection === "scissors" && computerSelection === "paper") {
     console.log("You win! scissors beats paper");
   } else {
-    console.log("draw! or something has gone wrong");
+    console.log("Error, something has gone wrong");
   }
 }
 
 const computerSelection = getComputerChoice();
-console.log("computer's choice is " + computerSelection);
-console.log(playRound(playerSelection, computerSelection));
