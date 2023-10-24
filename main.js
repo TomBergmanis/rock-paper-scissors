@@ -4,9 +4,8 @@ const message = document.querySelector("#message");
 const playerScore = document.querySelector(".playerScore");
 const computerScore = document.querySelector(".computerScore");
 
-let scorePlayer = 0;
-let scoreComputer = 0;
-let roundWinner = "";
+let scorePlayer = "";
+let scoreComputer = "";
 
 //computer generated choice//
 // generates a random choice for the opponent
@@ -19,18 +18,20 @@ const rock = document.getElementById("rockBtn");
 const paper = document.getElementById("paperBtn");
 const scissors = document.getElementById("scissorsBtn");
 
-rock.addEventListener("click", function () {
-  console.log("rock button clicked");
-  playRound("rock", getComputerChoice());
-});
-paper.addEventListener("click", function () {
-  console.log("paper button clicked");
-  playRound("paper", getComputerChoice());
-});
-scissors.addEventListener("click", function () {
-  console.log("scissors button clicked");
-  playRound("scissors", getComputerChoice());
-});
+function getPlayerChoice() {
+  rock.addEventListener("click", function () {
+    console.log("rock button clicked");
+    playRound("rock", getComputerChoice());
+  });
+  paper.addEventListener("click", function () {
+    console.log("paper button clicked");
+    playRound("paper", getComputerChoice());
+  });
+  scissors.addEventListener("click", function () {
+    console.log("scissors button clicked");
+    playRound("scissors", getComputerChoice());
+  });
+}
 
 function playRound(playerSelection, computerSelection) {
   //draws//
@@ -105,10 +106,24 @@ function playRound(playerSelection, computerSelection) {
     message.appendChild(content);
     scorePlayer++;
     playerScore.textContent = `Player: ${scorePlayer}`;
+  }
+  // winner of 5 rounds
+  if (scorePlayer >= 5 && scoreComputer < 5) {
+    const content = document.createElement("h1");
+    content.classList.add("content");
+    content.textContent = "Game Over. You Won!";
+    message.appendChild(content);
+  } else if (scorePlayer < 5 && scoreComputer >= 5) {
+    const content = document.createElement("h1");
+    content.classList.add("content");
+    content.textContent = "Game Over. You Lost!";
+    message.appendChild(content);
   } else {
     console.log("Error, something has gone wrong");
   }
 }
 
 const computerSelection = getComputerChoice();
-//display the computer's choice in the DOM
+const playerSelection = getPlayerChoice();
+
+//display the winner of the game once one player reaches 5 points.
